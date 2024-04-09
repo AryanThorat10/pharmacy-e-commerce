@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cart - Pharmacy E-commerce</title>
+    <link rel="stylesheet" href="cart.css">
+</head>
+<body>
+    <div class="cart-container">
+        <h2>My Cart</h2>
+        <div id="cart-items"></div>
+        <div id="total-price">Total: ₹0.00</div>
+        <a href="checkout.html" class="checkout-btn">Checkout</a>
+    </div>
+
+    <script>
+        // Function to display cart items on the cart page
+        function displayCartItems() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const totalPriceElement = document.getElementById('total-price');
+            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+            let totalPrice = 0;
+
+            cartItems.forEach(item => {
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+                cartItem.innerHTML = `
+                    <div>
+                        <span>${item.name}</span>
+                        <span>Price: ₹${item.price.toFixed(2)}</span>
+                    </div>
+                    <button class="remove-item" data-name="${item.name}">Remove</button>
+                `;
+                cartItemsContainer.appendChild(cartItem);
+
+                totalPrice += item.price;
+            });
+
+            totalPriceElement.textContent = `Total: ₹${totalPrice.toFixed(2)}`;
+        }
+
+        // Remove item from cart
+        function removeCartItem(event) {
+            if (event.target.classList.contains('remove-item')) {
+                const itemName = event.target.dataset.name;
+                let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+                cartItems = cartItems.filter(item => item.name !== itemName);
+                localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+                // Update display after removal
+                const cartItemsContainer = document.getElementById('cart-items');
+                cartItemsContainer.innerHTML = '';
+                displayCartItems();
+            }
+        }
+
+        // Event listener to handle removing items from the cart
+        document.addEventListener('click', removeCartItem);
+
+        // Display cart items when the cart page loads
+        displayCartItems();
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy E-commerce Login</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Log In</h2>
+        <form id="login-form" method="post">
+            <div class="input-group">
+                <label for="username">Full Name</label>
+                <input type="text" id="username" name="username" pattern="[A-Za-z ]+" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <div class="signup-link">
+            <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+        </div>
+    </div>
+
+    <!-- JavaScript code to handle form submission and validation -->
+    <script>
+        // JavaScript code to handle form submission and validation
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            
+            // Check if form is valid
+            if (this.checkValidity()) {
+                // If valid, submit the form
+                this.submit();
+            } else {
+                // If form is invalid, display error messages
+                event.stopPropagation();
+                this.classList.add('was-validated');
+                const invalidFields = this.querySelectorAll(':invalid');
+                invalidFields.forEach(field => {
+                    field.parentNode.classList.add('is-invalid');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy E-commerce Sign Up</title>
+    <link rel="stylesheet" href="signup.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form id="signup-form" action="/sign_up" method="post">
+            <div class="input-group">
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" name="fullname" pattern="[A-Za-z ]+" required>
+            </div>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="input-group">
+                <label for="new-username">Mobile No</label>
+                <input type="tel" id="new-username" name="new-username" pattern="[0-9]{10}" required>
+            </div>
+            <div class="input-group">
+                <label for="new-password">Password</label>
+                <input type="password" id="new-password" name="new-password" required>
+            </div>
+            <button type="submit" id="submit">Sign Up</button>
+        </form>
+    </div>
+
+    <!-- JavaScript code to handle form submission and validation -->
+    <script>
+        document.getElementById('signup-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            
+            // Check if form is valid
+            if (this.checkValidity()) {
+                // If valid, submit the form
+                this.submit();
+            } else {
+                // If form is invalid, display error messages
+                event.stopPropagation();
+                this.classList.add('was-validated');
+                const invalidFields = this.querySelectorAll(':invalid');
+                invalidFields.forEach(field => {
+                    field.parentNode.classList.add('is-invalid');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

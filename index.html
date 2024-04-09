@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy E-commerce</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="main">
+        <div class="navbar" id="navbar">
+            <div>
+                <a id="navbar_2" style="color: #00ff91; font-family: Georgia; font-size: xx-large;background-color: #fff;font-weight: bolder;margin-bottom: 20px;" id="navbar_2" href="index.html">Pharmacy E-commerce</a>
+            </div>
+            <header>
+                <nav id="navbar_1">
+                    <ul>
+                        <li><a style="top: 50px;" href="#">Call 0123456789 for help!</a></li>
+                        <li><a style="top: 50px;" href="login.html">Hello, Login</a></li>
+                        <li><a href="#">Track Orders</a></li>
+                        <li><a href="#">Offers</a></li>
+                        <li><a href="cart.html">Cart</a></li>
+                    </ul>
+                </nav>
+            </header>
+        </div>
+        
+        <span class="divider"></span>
+        
+        <!-- Cards Container -->
+        <div style="display: flex; justify-content: center;">
+            <div class="search_bar">
+                <input type="text" name="search_bar" id="search" placeholder="Search for Medicine and cosmetics">
+                <a id="searchBtn">Search</a>
+            </div>
+        </div>
+        <div class="cards-container" id="cards-container">
+            <!-- Products will be dynamically added here using JavaScript -->
+        </div> <!-- End of Cards Container -->
+        
+        <span class="divider1"></span>
+    </div>   
+
+    <script>
+        // Sample products data
+        const products = [
+            { name: "Paracetamol 500mg", price: 50, image: "paracetamol.jpg" },
+            { name: "Combiflam Tablet", price: 80, image: "Combiflam.jpg" },
+            { name: "Combiflam Syrup", price: 100, image: "combiflams.jpg" },
+            { name: "Supradyn", price: 150, image: "supradyn.jpg" },
+            { name: "Montex LC", price: 79, image: "montexlc.jpg" },
+            { name: "Subneuro B6", price: 99, image: "subneuro.jpg" },
+            { name: "Pan - D", price: 49, image: "pand.jpg" },
+            { name: "Nise", price: 15, image: "nise.jpg" },
+            { name: "Cod Liver Oil Capsules", price: 399, image: "cod.jpg" },
+            { name: "Adulsa Syrup", price: 200, image: "adulsa.jpg" },
+            
+            // Add more products as needed
+        ];
+
+        // Function to display products on the page
+        function displayProducts() {
+            const cardsContainer = document.getElementById('cards-container');
+
+            products.forEach(product => {
+                const card = document.createElement('div');
+                card.classList.add('cards');
+
+                card.innerHTML = `
+                    <div class="medicine1-image">
+                        <img src="${product.image}" alt="${product.name}" class="medicine1-image">
+                    </div>
+                    <div class="medicine1-name">
+                        <h2>${product.name}</h2>
+                    </div>
+                    <div class="medicine1-description">
+                        <p>Price: ₹${product.price}</p>
+                        <button class="add-to-cart" data-name="${product.name}" data-price="${product.price}">Add To Cart</button>
+                    </div>
+                `;
+
+                cardsContainer.appendChild(card);
+            });
+        }
+
+        // Function to handle adding products to the cart
+        function addToCart(event) {
+            if (event.target.classList.contains('add-to-cart')) {
+                const productName = event.target.dataset.name;
+                const productPrice = parseFloat(event.target.dataset.price);
+
+                let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+                cartItems.push({ name: productName, price: productPrice });
+                localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+                alert('Product added to cart!');
+            }
+        }
+
+        // Event listener to handle adding products to the cart
+        document.addEventListener('click', addToCart);
+
+        // Display products when the page loads
+        displayProducts();
+
+        // Search functionality
+        document.getElementById('searchBtn').addEventListener('click', function() {
+            const searchTerm = document.getElementById('search').value.toLowerCase();
+            const filteredProducts = products.filter(product => product.name.toLowerCase().includes(searchTerm));
+            displaySearchResults(filteredProducts);
+        });
+
+        function displaySearchResults(results) {
+            const cardsContainer = document.getElementById('cards-container');
+            cardsContainer.innerHTML = '';
+
+            results.forEach(product => {
+                const card = document.createElement('div');
+                card.classList.add('cards');
+
+                card.innerHTML = `
+                    <div class="medicine1-image">
+                        <img src="${product.image}" alt="${product.name}" class="medicine1-image">
+                    </div>
+                    <div class="medicine1-name">
+                        <h2>${product.name}</h2>
+                    </div>
+                    <div class="medicine1-description">
+                        <p>Price: ₹${product.price}</p>
+                        <button class="add-to-cart" data-name="${product.name}" data-price="${product.price}">Add To Cart</button>
+                    </div>
+                `;
+
+                cardsContainer.appendChild(card);
+            });
+        }
+    </script>
+            <div class="about_us" style="background-color: whitesmoke;">
+                <h2 class="about1" style="background-color: whitesmoke;">About Us</h2>
+                <p>Our Mission: <br>
+                    Our mission is to empower individuals to lead healthier lives by offering a convenient and secure online marketplace for pharmaceutical products. <br>We strive to:
+                    <br>
+                    Ensure access to a wide range of high-quality medicines and healthcare products.<br>
+                    Foster a user-friendly experience with a simple ordering process and timely delivery.<br>
+                    Promote health education and awareness for our customers.<br>
+                    <br>
+                    Our Values: <br>
+                    1. Customer-Centric: Your health is our priority. We are committed to delivering exceptional customer service, ensuring that your needs and concerns are addressed promptly.<br>
+                    2. Quality Assurance: We source our products from reputable manufacturers and adhere to strict quality standards to guarantee the efficacy and safety of the medicines we provide.<br>
+                    3. Privacy and Security: We understand the importance of privacy in healthcare. Our platform is designed with robust security measures to safeguard your personal information and ensure a confidential shopping experience.<br>
+                    4. Transparency: We believe in transparency in all our dealings. From product information to pricing, we aim to provide clear and accurate details to help you make informed decisions.<br></p>
+            </div>
+    
+            <section class="contact" style="background-color: whitesmoke">
+                <div class="contact_info">
+                    <div class="firstinfo">
+                        <h2 style="margin: 0px">Pharmacy E-commerce</h2>
+                        <p>Shop NO.2 Pune</p>
+                        <p>Mobile No = 0123456789</p>
+                        <p>Email ID = random@gmail.com</p>
+                    </div>
+                    <div class="social-icon">
+                        <i class="fa-brands fa-instagram" style="color: #d95c26;"></i>
+                        <i class="fa-brands fa-facebook" style="color: #74C0FC;"></i>
+                        <i class="fa-brands fa-whatsapp" style="color: #2ed018;"></i>
+                    </div>
+                </div>
+            </section>
+        </div> 
+</body>
+</html>
